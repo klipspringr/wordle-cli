@@ -3,6 +3,8 @@ Command-line clone of Josh Wardle's [WORDLE](https://www.powerlanguage.co.uk/wor
 - official dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
 
+![Screenshot of a Wordle CLI game](/assets/screenshot.png?raw=true "Screenshot of a Wordle CLI game")
+
 ### Download and run (`./play.py`)
 Requires Python 3.6 or later, and a terminal which supports colours and ANSI CSI codes, e.g. [Windows Terminal](https://aka.ms/terminal).
 
