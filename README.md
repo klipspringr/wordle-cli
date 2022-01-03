@@ -34,4 +34,4 @@ Usage: `./play.py [-h|--help|--today|SOLUTION]`
 |_none_                 |Use a random solution from the official Wordle dictionary  |
 |`-h` &#124; `--help`   |Print this help text and quit                              |
 |`--today`              |Use today's official Wordle solution                       |
-|`SOLUTION`             |Use a given SOLUTION                                       |
+|`SOLUTION`             |Use a given SOLUTION (probably only useful for debugging)  |

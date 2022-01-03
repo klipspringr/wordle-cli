@@ -12,12 +12,12 @@ if __name__=="__main__":
     forced_solution = None
     if len(sys.argv) >= 2:
         if sys.argv[1] == "-h" or sys.argv[1] == "--help":
-            print("Usage: ./play.py [-h|--help|--today|SOLUTION]")
+            print("Usage: play.py [-h|--help|--today|SOLUTION]")
             print()
             print("no parameters\tUse a random solution from the official Wordle dictionary")
             print("-h|--help\tPrint this help text and quit")
             print("--today\t\tUse today's official Wordle solution")
-            print("SOLUTION\tUse a given SOLUTION (e.g. play.py TIGHT)")
+            print("SOLUTION\tUse a given SOLUTION (probably only useful for debugging)")
             exit()
         elif sys.argv[1] == "--today":
             today_solution = True
