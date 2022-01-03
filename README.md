@@ -22,7 +22,7 @@ To run on **Windows** in [Windows Terminal](https://aka.ms/terminal) or PowerShe
 ```
 python3 play.py
 ```
-The Windows command prompt `cmd.exe` is not supported.
+The Windows command prompt (`cmd.exe`) is not supported.
 
 Not tested on **macOS**, but should work &mdash; let me know if any problems!
 
@@ -32,6 +32,10 @@ Usage: `./play.py [-h|--help|--today|SOLUTION]`
 |Argument               |Behaviour                                                  |
 |-----------------------|-----------------------------------------------------------|
 |_none_                 |Use a random solution from the official Wordle dictionary  |
-|`-h` &#124; `--help`   |Print this help text and quit                              |
+|`-h` , `--help`        |Print this help text and quit                              |
 |`--today`              |Use today's official Wordle solution                       |
 |`SOLUTION`             |Use a given SOLUTION (probably only useful for debugging)  |
+
+### Config file
+
+To tweak the terminal colours and other variables, copy `config.ini.defaults` to `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([example]((https://i.stack.imgur.com/6otvY.png))).
