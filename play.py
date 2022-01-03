@@ -33,6 +33,9 @@ if __name__=="__main__":
         except KeyboardInterrupt:
             print()
             player.quit()
+        finally:
+            if forced_solution or today_solution:
+                exit()
             
         try:
             input(f"Play again { Colours.DIM }[Enter]{ Colours.RESET } or exit { Colours.DIM }[Ctrl-C]{ Colours.RESET }? ")
