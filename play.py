@@ -2,7 +2,7 @@
 import sys
 
 import wordle
-from cli import CLIPlayer, Colours
+from cli import CLIPlayer
 
 if __name__=="__main__":
     game = wordle.Game()
@@ -14,8 +14,9 @@ if __name__=="__main__":
         if sys.argv[1] == "-h" or sys.argv[1] == "--help":
             print("Usage: play.py [-h|--help|--today|SOLUTION]")
             print()
-            print("no parameters\tUse a random solution from the official Wordle dictionary")
-            print("-h|--help\tPrint this help text and quit")
+            print("Default:\tUse a random solution from the official Wordle dictionary")
+            print("Options:")
+            print("-h, --help\tPrint this help text and quit")
             print("--today\t\tUse today's official Wordle solution")
             print("SOLUTION\tUse a given SOLUTION (probably only useful for debugging)")
             exit()
@@ -30,7 +31,7 @@ if __name__=="__main__":
     while True:
         try:
             game.play(player, forced_solution=forced_solution, today_solution=today_solution)
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             print()
             player.quit()
         finally:
@@ -38,8 +39,8 @@ if __name__=="__main__":
                 exit()
             
         try:
-            input(f"Play again { Colours.DIM }[Enter]{ Colours.RESET } or exit { Colours.DIM }[Ctrl-C]{ Colours.RESET }? ")
+            player.again()
             print()
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             print()
             exit()

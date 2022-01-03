@@ -11,7 +11,6 @@ except ImportError:
 
 import wordle
 
-
 class Colours:
     RESET = "\x1b[0m"
     WARN = "\x1b[33m"
@@ -23,7 +22,7 @@ class Colours:
         wordle.LetterStates.CORRECTPOSITION:    "\x1b[42;30m",
         wordle.LetterStates.INCORRECTPOSITION:  "\x1b[43;30m",
         wordle.LetterStates.NOTPRESENT:         "\x1b[40;37m",
-        wordle.LetterStates.NOTGUESSEDYET:      DIM
+        wordle.LetterStates.NOTGUESSEDYET:      "\x1b[2m"
     }
     EMOJI = {
         wordle.LetterStates.CORRECTPOSITION:    "🟩",
@@ -45,12 +44,12 @@ class CLIPlayer:
         self._all_letters = {letter: wordle.LetterStates.NOTGUESSEDYET for letter in string.ascii_uppercase}
 
         self.out(f"Let's play a game of Wordle")
-        self.show_hint(first=True)
+        self.update_hint(first=True)
 
     def guess(self, round):
         prompt = f"Guess { round }/{ self._ROUNDS}: "
         guess = input(prompt).upper()
-        sys.stdout.write(f"\033[A{prompt}")
+        sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
 
     def response(self, response):
@@ -59,7 +58,7 @@ class CLIPlayer:
             if self._all_letters[letter] != wordle.LetterStates.CORRECTPOSITION:
                 self._all_letters[letter] = state
         self.out(CLIPlayer.pretty_response(response))
-        self.show_hint()
+        self.update_hint()
 
     def warn(self, warning):
         self.out(f"{ Colours.WARN }{ warning }")
@@ -83,16 +82,21 @@ class CLIPlayer:
     def quit(self):
         self.out(f"{ Colours.LOSE }QUIT!")
 
+    def again(self):
+        return input(f"Play again { Colours.DIM }[Enter]{ Colours.RESET } or exit { Colours.DIM }[Ctrl-C]{ Colours.RESET }? ")
+
     def out(self, string=""):
         # print reset and non-breaking space to avoid glitching on terminal resize
         print(f"{ string }{ Colours.RESET }\xA0")
         if self._lines_since_hint > 0:
             self._lines_since_hint += 1
 
-    def show_hint(self, first=False):
-        sys.stdout.write("\033[F" * self._lines_since_hint)
+    def update_hint(self, first=False):
+        if self._lines_since_hint > 0:
+            sys.stdout.write(f"\033[{self._lines_since_hint}F") # move cursor up to hint line
         sys.stdout.write(CLIPlayer.pretty_response(self._all_letters.items())+"\xA0")
-        sys.stdout.write("\033[E" * self._lines_since_hint)
+        if self._lines_since_hint > 0:
+            sys.stdout.write(f"\033[{self._lines_since_hint}E") # move cursor back down
         if first:
             sys.stdout.write("\n")
             self._lines_since_hint = 1
