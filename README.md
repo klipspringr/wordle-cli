@@ -38,4 +38,4 @@ Usage: `./play.py [-h|--help|--today|SOLUTION]`
 
 ### Config file
 
-To tweak the terminal colours and other variables, copy `config.ini.defaults` to `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([example]((https://i.stack.imgur.com/6otvY.png))).
+To tweak the terminal colours and other variables, copy `config.ini.defaults` to `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([cheat sheet](https://i.stack.imgur.com/6otvY.png)).
