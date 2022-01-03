@@ -27,7 +27,7 @@ class Game:
         # default list of guesses does not include solutions, so add them
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
 
-    def is_valid_solution(self, s):
+    def is_valid_solution(self, s) -> bool:
         return len(s) == self.LENGTH and s in self.VALID_SOLUTIONS
    
     def play(self, player, forced_solution=None, today_solution=False):
@@ -39,7 +39,7 @@ class Game:
         else:
             self._solution = random.choice(self.VALID_SOLUTIONS)
         
-        player.initialise()
+        player.start()
         round = 1
         while round <= self.ROUNDS:
             while True:

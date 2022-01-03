@@ -1,0 +1,32 @@
+# Save this file as config.ini and uncomment any lines you wish to change
+# 
+# Entries in COLOURS and STATE_COLOURS should be ECMA-48 Select Graphic Rendition codes, delimited by ';'
+#   Helpful list: https://i.stack.imgur.com/6otvY.png
+# 
+# Section and option names are case-sensitive. Section headers should always be uncommented
+
+[COLOURS]
+#WARN = 33
+#WIN =  1;32
+#LOSE = 1;31
+#HI =   1
+#DIM =  2
+
+[STATE_COLOURS]
+#LetterStates.CORRECTPOSITION =   42;30
+#LetterStates.INCORRECTPOSITION = 43;30
+#LetterStates.NOTPRESENT =        40;37
+#LetterStates.NOTGUESSEDYET =     2
+
+[SHARE_EMOJI]
+#LetterStates.CORRECTPOSITION =   🟩
+#LetterStates.INCORRECTPOSITION = 🟨
+#LetterStates.NOTPRESENT =        ⬛
+
+[WIN_MESSAGES]
+#1 = 🤯 GENIUS
+#2 = 🧠 MAGNIFICENT
+#3 = 🔥 IMPRESSIVE
+#4 = 🏆 SPLENDID
+#5 = 🏅 GREAT
+#6 = 👍 NICE

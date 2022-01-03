@@ -34,9 +34,9 @@ if __name__=="__main__":
         except (KeyboardInterrupt, EOFError):
             print()
             player.quit()
-        finally:
-            if forced_solution or today_solution:
-                exit()
+        
+        if forced_solution or today_solution:
+            exit()
             
         try:
             player.again()
