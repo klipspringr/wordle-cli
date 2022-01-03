@@ -84,13 +84,14 @@ class CLIPlayer:
         self.out(f"{ Colours.LOSE }QUIT!")
 
     def out(self, string=""):
-        print(f"{ string }{ Colours.RESET }")
+        # print reset and non-breaking space to avoid glitching on terminal resize
+        print(f"{ string }{ Colours.RESET }\xA0")
         if self._lines_since_hint > 0:
             self._lines_since_hint += 1
 
     def show_hint(self, first=False):
         sys.stdout.write("\033[F" * self._lines_since_hint)
-        sys.stdout.write(CLIPlayer.pretty_response(self._all_letters.items()))
+        sys.stdout.write(CLIPlayer.pretty_response(self._all_letters.items())+"\xA0")
         sys.stdout.write("\033[E" * self._lines_since_hint)
         if first:
             sys.stdout.write("\n")
