@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Interactive player",
+            "type": "python",
+            "request": "launch",
+            "program": "play.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Interactive player with fixed solution",
+            "type": "python",
+            "request": "launch",
+            "program": "play.py",
+            "args": ["${input:solution}"],
+            "console": "integratedTerminal"
+        },
+    ],
+    "inputs": [
+        {
+          "id": "solution",
+          "type": "promptString",
+          "description": "SOLUTION word, or --today",
+          "default": "TIGHT"
+        }
+    ]
+}
