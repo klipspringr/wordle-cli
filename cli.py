@@ -67,7 +67,7 @@ class CLIPlayer:
     def win(self, round, number=None):
         self.out(f"{ Colours.WIN }{ self._WINS[round - 1] }! Got it in { round }/{ self._ROUNDS } rounds")
         
-        share_text = "worldle-cli {n}{r}/{R}\n".format(n=f"{number} " if number else "", r=round, R=self._ROUNDS)
+        share_text = "wordle-cli {n}{r}/{R}\n".format(n=f"{number} " if number else "", r=round, R=self._ROUNDS)
         for response in self._response_history:
             share_text += "\n" + "".join(Colours.EMOJI[state] for _, state in response)
 
