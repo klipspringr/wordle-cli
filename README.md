@@ -1,4 +1,4 @@
-Command-line clone of Josh Wardle's [WORDLE](https://www.powerlanguage.co.uk/wordle/). Features:
+Command-line clone of Josh Wardle's [WORDLE](https://www.powerlanguage.co.uk/wordle/), inspired by [Paul Battley's Ruby version](https://github.com/threedaymonk/wordle). Features:
 - play against random solutions, or against the once-a-day "official" Wordle solution (with `--today`)
 - official dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
