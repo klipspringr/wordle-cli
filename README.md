@@ -6,7 +6,7 @@ Command-line clone of Josh Wardle's [WORDLE](https://www.powerlanguage.co.uk/wor
 ![Screenshot of a Wordle CLI game](/assets/screenshot.png?raw=true "Screenshot of a Wordle CLI game")
 
 ### Download and run (`./play.py`)
-Requires Python 3.6 or later, and a terminal which supports colours and ANSI CSI codes, e.g. [Windows Terminal](https://aka.ms/terminal).
+Requires **Python 3.6** or later, and a **modern terminal app** (e.g. [Windows Terminal](https://aka.ms/terminal) if running Windows)
 
 To get the code:
 ```
@@ -18,11 +18,11 @@ To run on **Linux** or **WSL**:
 ```
 ./play.py
 ```
-To run on **Windows** in [Windows Terminal](https://aka.ms/terminal) or PowerShell:
+To run on **Windows**:
 ```
 python3 play.py
 ```
-The Windows command prompt (`cmd.exe`) is not supported.
+A terminal with colour and emoji support is required. On Windows and WSL, [Windows Terminal](https://aka.ms/terminal) is the best choice. PowerShell and the Windows command prompt are only supported if running in Windows Terminal.
 
 Not tested on **macOS**, but should work &mdash; let me know if any problems!
 
