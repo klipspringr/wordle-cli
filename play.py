@@ -7,10 +7,10 @@ from cli import CLIPlayer
 if __name__=="__main__":
     game = wordle.Game()
     player = CLIPlayer()
-
+    
     today_solution = False
     forced_solution = None
-    if len(sys.argv) >= 2:
+    if len(sys.argv) > 1:
         if sys.argv[1] == "-h" or sys.argv[1] == "--help":
             print("Usage: play.py [-h|--help|--today|SOLUTION]")
             print()

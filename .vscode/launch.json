@@ -5,27 +5,45 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Interactive player",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "play.py",
+            "program": "${file}",
             "console": "integratedTerminal"
         },
         {
-            "name": "Interactive player with fixed solution",
+            "name": "Interactive player with argument",
             "type": "python",
             "request": "launch",
             "program": "play.py",
-            "args": ["${input:solution}"],
+            "args": [
+                "${input:play_argument}"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Benchmark robot player with argument",
+            "type": "python",
+            "request": "launch",
+            "program": "benchmark.py",
+            "args": [
+                "${input:benchmark_argument}"
+            ],
             "console": "integratedTerminal"
         },
     ],
     "inputs": [
         {
-          "id": "solution",
-          "type": "promptString",
-          "description": "SOLUTION word, or --today",
-          "default": "TIGHT"
+            "id": "play_argument",
+            "type": "promptString",
+            "description": "SOLUTION word, or --today",
+            "default": "TIGHT"
+        },
+        {
+            "id": "benchmark_argument",
+            "type": "promptString",
+            "description": "SOLUTION word, or number of iterations",
+            "default": "MOVER"
         }
     ]
 }
