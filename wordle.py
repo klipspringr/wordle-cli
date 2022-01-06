@@ -92,8 +92,8 @@ class Game:
 
     @staticmethod
     def is_same_response(guess: str, solution: str, other_response: list[LetterStates]) -> bool:
-        if guess == solution and other_response != Game.WIN_STATES:
-            return False
+        if guess == solution:
+            return other_response == Game.WIN_STATES
         
         # https://mathspp.com/blog/solving-wordle-with-python
         # pool is set of letters in the solution available for INCORRECTPOSITION 

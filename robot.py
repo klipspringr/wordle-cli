@@ -30,12 +30,12 @@ class RobotPlayer:
         elif round <= len(self.PRESETS):
             guess = self.PRESETS[round - 1]
         else:
-            guess = self.minimax_bestguess()
+            guess = self.minimax_guess()
 
         self.common_guesses[round - 1][guess] += 1
         return guess
 
-    def minimax_bestguess(self):
+    def minimax_guess(self):
         scores = {}
         count_possible_solutions = len(self._possible_solutions)
         # For every possible guess
