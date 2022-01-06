@@ -8,7 +8,7 @@ from robot import RobotPlayer
 if __name__=="__main__":
     game = Game()
     player = RobotPlayer(game.VALID_GUESSES)
-    # NOTE: to cut down computation time by constraining guesses to list of solutions, replace. This is cheating!
+    # NOTE: to constraining guesses to list of solutions, comment out the line above and uncomment the line below (this is cheating!)
     #player = RobotPlayer(game.VALID_SOLUTIONS)
 
     try:
