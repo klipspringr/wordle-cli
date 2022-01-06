@@ -1,4 +1,4 @@
-__pycache__
-*.js
+__pycache__/
+__private/
 config.ini
-RESULTS.md
+*.js
