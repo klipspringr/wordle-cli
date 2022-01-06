@@ -2,7 +2,7 @@
 
 [Wordle](https://www.powerlanguage.co.uk/wordle/) is a popular game where you guess a five-letter word within six attempts. After each guess, the game tells you if each letter of your guess was (a) correct i.e. in the solution in the same position; (b) present in the solution but not in that position; or (c) not present in the solution.
 
-This program demonstrates that, by using [Knuth's minimax algorithm](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm) with some presets for early guesses, Wordle can be played and successfully solved within six guesses for every possible solution, in a reasonable time.
+This program demonstrates that, by using [Knuth's minimax algorithm for Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm) with some presets for early guesses, Wordle can be played and successfully solved within six guesses for every possible solution, in a reasonable time.
 
 The "official" version of Wordle specifies 12,972 valid guesses and 2,315 solutions. This program guesses words from the valid guess list, which is effectively available to a human player (as the game rejects invalid guesses without using up a guess).
 
