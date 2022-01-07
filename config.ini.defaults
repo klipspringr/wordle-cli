@@ -10,13 +10,13 @@
 #WIN =  1;32
 #LOSE = 1;31
 #HI =   1
-#DIM =  2
+#DIM =  90
 
 [STATE_COLOURS]
 #LetterStates.CORRECTPOSITION =   42;30
 #LetterStates.INCORRECTPOSITION = 43;30
 #LetterStates.NOTPRESENT =        40;37
-#LetterStates.NOTGUESSEDYET =     2
+#LetterStates.NOTGUESSEDYET =     90
 
 [SHARE_EMOJI]
 #LetterStates.CORRECTPOSITION =   🟩

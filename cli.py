@@ -20,12 +20,12 @@ class CLIConfig:
     WIN = "\x1b[1;32m"
     LOSE = "\x1b[1;31m"
     HI = "\x1b[1m"
-    DIM = "\x1b[2m"
+    DIM = "\x1b[90m"
     STATE_COLOURS = {
         LetterStates.CORRECTPOSITION:    "\x1b[42;30m",
         LetterStates.INCORRECTPOSITION:  "\x1b[43;30m",
         LetterStates.NOTPRESENT:         "\x1b[40;37m",
-        LetterStates.NOTGUESSEDYET:      "\x1b[2m"
+        LetterStates.NOTGUESSEDYET:      "\x1b[90m"
         }
     SHARE_EMOJI = {
         LetterStates.CORRECTPOSITION:    "🟩",
