@@ -7,7 +7,7 @@ Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wor
 
 ### Solving Wordle
 
-This repo also demonstrates that all the official solutions can be found within six guesses. The program implements [Knuth's minimax algorithm for Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm), with some presets for initial guesses, to play and win against all solutions, in reasonable time on a desktop computer. [Read more](/SOLVING.md) about solving Wordle.
+Using a combination of [Knuth's minimax algorithm for Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm) and two hardcoded initial guesses, it's possible to win Wordle for 100% of possible solutions. The algorithm is seeded with the "offical" list of valid guesses (_not_ the solutions). This is effectively available to human players as well (as the game rejects invalid words without using up a guess). This repo contained a solver, but it was unnecessarily slow, so I'm rewriting it and will release in due course.
 
 ### Download and run (`./play.py`)
 Requires **Python 3.6** or later, and a **modern terminal app** (e.g. [Windows Terminal](https://aka.ms/terminal) if running Windows)
