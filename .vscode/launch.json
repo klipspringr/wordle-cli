@@ -21,29 +21,13 @@
             ],
             "console": "integratedTerminal"
         },
-        {
-            "name": "Benchmark robot player with argument",
-            "type": "python",
-            "request": "launch",
-            "program": "benchmark.py",
-            "args": [
-                "${input:benchmark_argument}"
-            ],
-            "console": "integratedTerminal"
-        },
     ],
     "inputs": [
         {
             "id": "play_argument",
             "type": "promptString",
-            "description": "SOLUTION word, or --today",
+            "description": "a solution word, or --today",
             "default": "TIGHT"
         },
-        {
-            "id": "benchmark_argument",
-            "type": "promptString",
-            "description": "SOLUTION word, or number of iterations",
-            "default": "MOVER"
-        }
     ]
 }
