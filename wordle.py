@@ -2,6 +2,7 @@ import os
 import random
 from datetime import datetime
 from enum import Enum
+from typing import List
 
 class LetterStates(Enum):
     NOTGUESSEDYET = 0
@@ -64,7 +65,7 @@ class Game:
         return None
     
     @staticmethod
-    def check_guess(guess: str, solution: str) -> list[LetterStates]:
+    def check_guess(guess: str, solution: str) -> List[LetterStates]:
         if guess == solution:
             return Game.WIN_STATES
         
@@ -91,7 +92,7 @@ class Game:
         return states
 
     @staticmethod
-    def is_same_response(guess: str, solution: str, other_response: list[LetterStates]) -> bool:
+    def is_same_response(guess: str, solution: str, other_response: List[LetterStates]) -> bool:
         if guess == solution:
             return other_response == Game.WIN_STATES
         

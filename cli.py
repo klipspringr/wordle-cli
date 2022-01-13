@@ -5,13 +5,15 @@ import string
 import subprocess
 import sys
 from configparser import ConfigParser
+from typing import List
 
 try:
     import readline
 except ImportError:
     pass
 
-from wordle import LetterStates, Game
+from wordle import Game, LetterStates
+
 
 class CLIConfig:
     RESET = "\x1b[0m"
@@ -88,7 +90,7 @@ class CLIPlayer:
         sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
 
-    def handle_response(self, guess: str, states: list[LetterStates]):
+    def handle_response(self, guess: str, states: List[LetterStates]):
         self._response_history.append((guess, states))
         for letter, state in zip(guess, states):
             # only change a letter's hint status if new status is "better" (avoids repeat letter problem)
