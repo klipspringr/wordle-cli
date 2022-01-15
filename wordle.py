@@ -45,9 +45,10 @@ class Game:
                 if player.ASSUME_GUESSES_VALID:
                     break
                 elif len(guess) != self.LENGTH or not guess.isalpha():
-                    player.warn(f"{ guess } invalid guess (expected 5-letter word)".strip())
+                    guess = guess.strip()
+                    player.warn(f"{ guess[:5]+'..' if len(guess) > self.LENGTH else guess } invalid")
                 elif guess not in self.VALID_GUESSES:
-                    player.warn(f"{ guess } not in dictionary")
+                    player.warn(f"{ guess } not in dict".strip())
                 else:
                     break
            
