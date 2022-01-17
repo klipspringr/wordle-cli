@@ -43,9 +43,7 @@ class Game:
            
             states = Game.check_guess(guess, solution)
 
-            if hints and states == Game.WIN_STATES:
-                hint = -1
-            elif hints:
+            if hints and states != Game.WIN_STATES:
                 self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
                 hint = len(self.POSSIBLE_WORDS)
             else:
