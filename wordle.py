@@ -1,6 +1,4 @@
 import os
-import random
-from datetime import datetime
 from enum import Enum
 from typing import List
 
@@ -26,19 +24,8 @@ class Game:
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
 
         self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
-
-    def is_valid_solution(self, solution) -> bool:
-        return len(solution) == self.LENGTH and solution in self.VALID_SOLUTIONS
-   
-    def play(self, player, forced_solution=None, today_solution=False, hints=False):
-        if forced_solution:
-            solution = forced_solution
-        elif today_solution:
-            delta = (datetime.utcnow() - datetime(2021, 6, 19)).days % len(self.VALID_SOLUTIONS)
-            solution = self.VALID_SOLUTIONS[delta]
-        else:
-            solution = random.choice(self.VALID_SOLUTIONS)
-        
+  
+    def play(self, player, solution, hints=False):
         player.start()
         round = 1
         while round <= self.ROUNDS:
@@ -67,7 +54,7 @@ class Game:
             player.handle_response(guess, states, hint)
             if states == Game.WIN_STATES:
                 if hasattr(player, "handle_win"):
-                    player.handle_win(round, game_identifier=(delta if today_solution else None))
+                    player.handle_win(round)
                 return round
 
             round += 1

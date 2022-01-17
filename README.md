@@ -2,7 +2,7 @@
 
 Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wordle/), inspired by [Paul Battley's Ruby version](https://github.com/threedaymonk/wordle). Features:
 
-- play against random solutions, or against the once-a-day "official" Wordle solution (with `--today`)
+- play against random solutions, or against the daily "official" Wordle solution (with `--today`), or a previous day's (e.g. `210`)
 - official dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
 - optional hints mode (`--hints`) to show number of possible words remaining
@@ -28,15 +28,19 @@ Not tested on **macOS**, but should work &mdash; let me know if any problems!
 
 ## Options
 
-Usage: `python3 play.py [-h|--help] [--today|SOLUTION] [--hints]`
+Usage: `python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]`
 
 |Argument               |Behaviour                                                  |
 |-----------------------|-----------------------------------------------------------|
 |_none_                 |Use a random solution from the official Wordle dictionary  |
-|`-h` , `--help`        |Print this help text and quit                              |
-|`--today`              |Use today's official Wordle solution                       |
-|`SOLUTION`             |Use a given SOLUTION (probably only useful for debugging)  |
+|`--today`              |**\***  Use today's official Wordle solution               |
+|`DAY` (number)         |**\***  Use the official solution from this DAY            |
+|`SOLUTION` (str)       |**\***  Use a given SOLUTION (must be 5-letter word)       |
 |`--hints`              |After each guess, report number of possible words remaining|
+|`-h` , `--help`        |Print this help text and quit                              |
+
+_Note: options marked **\*** are mutually-exclusive._
+
 
 Hints mode (`--hints`) looks like this:
 

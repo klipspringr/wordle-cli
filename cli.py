@@ -102,10 +102,10 @@ class CLIPlayer:
     def warn(self, warning):
         self.out(f"{ self._C.WARN }{ warning }")
 
-    def handle_win(self, round, game_identifier=None):
+    def handle_win(self, round):
         self.out(f"{ self._C.WIN }{ self._C.WIN_MESSAGES[round] }! Got it in { round }/{ Game.ROUNDS } rounds")
         
-        share_text = "wordle-cli {n}{r}/{R}\n".format(n=f"{game_identifier} " if game_identifier else "", r=round, R=Game.ROUNDS)
+        share_text = f"wordle-cli {(str(self.GAME_NUMBER)+' ' if self.GAME_NUMBER else '')}{round}/{Game.ROUNDS}\n"
         for _, states in self._response_history:
             share_text += "\n" + "".join(self._C.SHARE_EMOJI[state] for state in states)
 
