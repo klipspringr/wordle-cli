@@ -67,9 +67,9 @@ class CLIPlayer:
     _C : CLIConfig
 
     def __init__(self):
-        self._lines_since_hint = -1
+        self._lines_since_keyboard = -1
         self._response_history = []
-        self._hint_status = {}
+        self._keyboard_status = {}
         try:
             self._C = CLIConfig.from_ini()
         except Exception as e:
@@ -77,12 +77,12 @@ class CLIPlayer:
             self.warn(f"Exception parsing config file, using defaults instead ({ e })")
 
     def start(self):
-        self._lines_since_hint = -1
+        self._lines_since_keyboard = -1
         self._response_history = []
-        self._hint_status = {letter: LetterStates.NOTGUESSEDYET for letter in string.ascii_uppercase}
+        self._keyboard_status = {letter: LetterStates.NOTGUESSEDYET for letter in string.ascii_uppercase}
 
         self.out(f"Let's play a game of Wordle")
-        self.update_hint()
+        self.update_keyboard()
 
     def guess(self, round) -> str:
         prompt = f"Guess { round }/{ Game.ROUNDS}: "
@@ -90,14 +90,14 @@ class CLIPlayer:
         sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
 
-    def handle_response(self, guess: str, states: List[LetterStates]):
+    def handle_response(self, guess: str, states: List[LetterStates], hint: int):
         self._response_history.append((guess, states))
         for letter, state in zip(guess, states):
-            # only change a letter's hint status if new status is "better" (avoids repeat letter problem)
-            if state.value > self._hint_status[letter].value:
-                self._hint_status[letter] = state
-        self.out(self.pretty_response(guess, states, self._C))
-        self.update_hint()
+            # only change a letter's keyboard status if new status is "better" (avoids repeat letter problem)
+            if state.value > self._keyboard_status[letter].value:
+                self._keyboard_status[letter] = state
+        self.out(self.pretty_response(guess, states, self._C)+(f" { self._C.DIM }{ hint } possible" if hint != -1 else ""))
+        self.update_keyboard()
 
     def warn(self, warning):
         self.out(f"{ self._C.WARN }{ warning }")
@@ -127,18 +127,18 @@ class CLIPlayer:
     def out(self, string=""):
         # print non-breaking space to avoid glitching on terminal resize
         print(f"{ string }{ self._C.RESET }\xA0")
-        if self._lines_since_hint >= 1:
-            self._lines_since_hint += 1
+        if self._lines_since_keyboard >= 1:
+            self._lines_since_keyboard += 1
 
-    def update_hint(self):
-        if self._lines_since_hint >= 1:
-            sys.stdout.write(f"\033[{self._lines_since_hint}F") # move cursor up to hint line
-        sys.stdout.write(self.pretty_response(list(self._hint_status.keys()), list(self._hint_status.values()), self._C)+"\xA0")
-        if self._lines_since_hint >= 1:
-            sys.stdout.write(f"\033[{self._lines_since_hint}E") # move cursor back down
-        elif self._lines_since_hint == -1:
+    def update_keyboard(self):
+        if self._lines_since_keyboard >= 1:
+            sys.stdout.write(f"\033[{self._lines_since_keyboard}F") # move cursor up to keyboard line
+        sys.stdout.write(self.pretty_response(list(self._keyboard_status.keys()), list(self._keyboard_status.values()), self._C)+"\xA0")
+        if self._lines_since_keyboard >= 1:
+            sys.stdout.write(f"\033[{self._lines_since_keyboard}E") # move cursor back down
+        elif self._lines_since_keyboard == -1:
             sys.stdout.write("\n")
-            self._lines_since_hint = 1
+            self._lines_since_keyboard = 1
   
     # static method for use by other Player types
     @staticmethod

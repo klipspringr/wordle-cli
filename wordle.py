@@ -25,10 +25,12 @@ class Game:
         # official list of guesses does not include solutions, so add them, ignoring duplicates (albeit no duplicates in official lists)
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
 
+        self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
+
     def is_valid_solution(self, solution) -> bool:
         return len(solution) == self.LENGTH and solution in self.VALID_SOLUTIONS
    
-    def play(self, player, forced_solution=None, today_solution=False):
+    def play(self, player, forced_solution=None, today_solution=False, hints=False):
         if forced_solution:
             solution = forced_solution
         elif today_solution:
@@ -53,7 +55,16 @@ class Game:
                     break
            
             states = Game.check_guess(guess, solution)
-            player.handle_response(guess, states)
+
+            if hints and states == Game.WIN_STATES:
+                hint = -1
+            elif hints:
+                self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
+                hint = len(self.POSSIBLE_WORDS)
+            else:
+                hint = -1
+
+            player.handle_response(guess, states, hint)
             if states == Game.WIN_STATES:
                 if hasattr(player, "handle_win"):
                     player.handle_win(round, game_identifier=(delta if today_solution else None))

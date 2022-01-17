@@ -27,7 +27,7 @@ Not tested on **macOS**, but should work &mdash; let me know if any problems!
 
 ## Options
 
-Usage: `python3 play.py [-h|--help|--today|SOLUTION]`
+Usage: `python3 play.py [-h|--help] [--today|SOLUTION] [--hints]`
 
 |Argument               |Behaviour                                                  |
 |-----------------------|-----------------------------------------------------------|
@@ -35,6 +35,7 @@ Usage: `python3 play.py [-h|--help|--today|SOLUTION]`
 |`-h` , `--help`        |Print this help text and quit                              |
 |`--today`              |Use today's official Wordle solution                       |
 |`SOLUTION`             |Use a given SOLUTION (probably only useful for debugging)  |
+|`--hints`              |After each guess, report number of possible words remaining|
 
 ## Configuration
 
