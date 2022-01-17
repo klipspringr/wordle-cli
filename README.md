@@ -5,6 +5,7 @@ Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wor
 - play against random solutions, or against the once-a-day "official" Wordle solution (with `--today`)
 - official dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
+- optional hints mode (`--hints`) to show number of possible words remaining
 
 ![Screenshot of a Wordle CLI game](/assets/screenshot.png?raw=true "Screenshot of a Wordle CLI game")
 
@@ -37,9 +38,13 @@ Usage: `python3 play.py [-h|--help] [--today|SOLUTION] [--hints]`
 |`SOLUTION`             |Use a given SOLUTION (probably only useful for debugging)  |
 |`--hints`              |After each guess, report number of possible words remaining|
 
+Hints mode (`--hints`) looks like this:
+
+![Screenshot of a Wordle CLI game with hints](/assets/screenshot_hints.png?raw=true "Screenshot of a Wordle CLI game with hints")
+
 ## Configuration
 
-To change the terminal colours and other variables, save the file `config.ini.defaults` as `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([cheat sheet](https://i.stack.imgur.com/6otvY.png)).
+To change the terminal colours, sharing emoji and other variables, save the file `config.ini.defaults` as `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([cheat sheet](https://i.stack.imgur.com/6otvY.png)).
 
 ## Solving Wordle
 
