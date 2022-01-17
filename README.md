@@ -2,12 +2,12 @@
 
 Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wordle/), inspired by [Paul Battley's Ruby version](https://github.com/threedaymonk/wordle). Features:
 
-- play against random solutions, or against the daily "official" Wordle solution (with `--today`), or a previous day's (e.g. `210`)
-- official dictionaries of solutions and valid guesses
+- play against random solutions, or against the daily "official" Wordle solution
+- uses official dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
 - optional hints mode (`--hints`) to show number of possible words remaining
 
-![Screenshot of a Wordle CLI game](/assets/screenshot.png?raw=true "Screenshot of a Wordle CLI game")
+![Screenshot of a wordle-cli game](/assets/screenshot.png?raw=true "Screenshot of a wordle-cli game")
 
 ## Download and run
 
@@ -30,7 +30,7 @@ Not tested on **macOS**, but should work &mdash; let me know if any problems!
 
 Usage: `python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]`
 
-|Argument               |Behaviour                                                  |
+|Option                 |Behaviour                                                  |
 |-----------------------|-----------------------------------------------------------|
 |_none_                 |Use a random solution from the official Wordle dictionary  |
 |`--today`              |**\***  Use today's official Wordle solution               |
@@ -41,10 +41,11 @@ Usage: `python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]`
 
 _Note: options marked **\*** are mutually-exclusive._
 
+So, to play against random solutions, run `python3 play.py`; to play today's official solution, run `python3 play.py --today`; or to play against the solution from game day 211 (16 January 2022), run `python3 play 211`. 
 
 Hints mode (`--hints`) looks like this:
 
-![Screenshot of a Wordle CLI game with hints](/assets/screenshot_hints.png?raw=true "Screenshot of a Wordle CLI game with hints")
+![Screenshot of a wordle-cli game with hints](/assets/screenshot_hints.png?raw=true "Screenshot of a wordle-cli game with hints")
 
 ## Configuration
 
