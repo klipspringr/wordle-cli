@@ -1,65 +1,71 @@
 #!/usr/bin/env python3
+
+import argparse
 import random
-import sys
+
 from datetime import datetime
 
 import wordle
+
 from cli import CLIPlayer
 
-def print_help():
-    print("Usage: python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]")
-    print()
-    print("Option\t\tBehaviour (* = mutually-exclusive)")
-    print("------\t\t----------------------------------")
-    print("none\t\tUse a random solution from the official Wordle dictionary")
-    print("--today\t\t* Use today's official Wordle solution")
-    print("DAY (number)\t* Use the official solution from this DAY")
-    print("SOLUTION (str)\t* Use a given SOLUTION (must be 5-letter word)")
-    print("--hints\t\tAfter each guess, report number of possible words remaining")
-    print("-h, --help\tPrint this help text and quit")
-    exit()
 
-if __name__=="__main__":
+def parse_cli_args() -> argparse.Namespace:
+    def _solution_arg_verifier(solution_arg: str) -> str:
+        if not isinstance(solution_arg, str) or len(solution_arg) != game.LENGTH:
+            raise argparse.ArgumentTypeError(f"--solution argument must be a {game.LENGTH}-letter word")
+        if solution_arg not in game.VALID_SOLUTIONS:
+            raise argparse.ArgumentTypeError(f"{solution_arg} is not in dict")
+        return solution_arg.upper()
+
+    args = argparse.ArgumentParser()
+    args.add_argument("--hints",
+                      action="store_true",
+                      help="After each guess, report number of possible words remaining")
+    solution_args = args.add_mutually_exclusive_group()
+    solution_args.add_argument("--today",
+                               action="store_true",
+                               help="Use today's official Wordle solution")
+    solution_args.add_argument("--day",
+                               type=int,
+                               help="Use the official solution from this DAY")
+    solution_args.add_argument("--solution",
+                               type=_solution_arg_verifier,
+                               help=f"Use a given SOLUTION (must be {game.LENGTH}-letter word)")
+
+    return args.parse_args()
+
+
+if __name__ == "__main__":
     game = wordle.Game()
     player = CLIPlayer()
-    
-    solution = None
-    hints = False
-    loop = False
-    for arg in sys.argv[1:]:
-        if arg == "-h" or arg == "--help":
-            print_help()
-        elif arg == "--today" and solution == None:
-            delta = (datetime.utcnow() - datetime(2021, 6, 19)).days % len(game.VALID_SOLUTIONS)
-            solution = game.VALID_SOLUTIONS[delta]
-            player.GAME_NUMBER = delta
-        elif arg.isdigit() and int(arg) >= 0 and solution == None:
-            delta = int(arg) % len(game.VALID_SOLUTIONS)
-            solution = game.VALID_SOLUTIONS[delta]
-            player.GAME_NUMBER = delta
-        elif arg.isalpha() and len(arg) == game.LENGTH and solution == None:
-            solution = arg.upper()
-            player.warn(f"Solution will be { solution }")
-        elif arg == "--hints":
-            hints = True
-        else:
-            player.warn(f"Invalid argument { arg }")
-            print_help()
 
-    if solution == None:
+    cli_args = parse_cli_args()
+
+    if cli_args.today:
+        delta = (datetime.utcnow() - datetime(2021, 6, 19)).days % len(game.VALID_SOLUTIONS)
+        solution = game.VALID_SOLUTIONS[delta]
+        player.GAME_NUMBER = delta
+
+    elif cli_args.day:
+        delta = cli_args.day % len(game.VALID_SOLUTIONS)
+        solution = game.VALID_SOLUTIONS[delta]
+        player.GAME_NUMBER = delta
+
+    elif cli_args.solution:
+        solution = cli_args.solution
+        player.warn(f"Solution will be {solution}")
+
+    else:
         solution = random.choice(game.VALID_SOLUTIONS)
-        loop = True
-         
+
     while True:
         try:
-            game.play(player, solution, hints=hints)
+            game.play(player, solution, hints=cli_args.hints)
         except (KeyboardInterrupt, EOFError):
             print()
             player.quit()
-        
-        if not loop:
-            exit()
-            
+
         try:
             player.again()
             print()
