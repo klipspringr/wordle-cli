@@ -12,11 +12,12 @@ from cli import CLIPlayer
 
 def parse_cli_args() -> argparse.Namespace:
     def _solution_arg_verifier(solution_arg: str) -> str:
+        solution_arg = solution_arg.upper()
         if not isinstance(solution_arg, str) or len(solution_arg) != game.LENGTH:
             raise argparse.ArgumentTypeError(f"--solution argument must be a {game.LENGTH}-letter word")
         if solution_arg not in game.VALID_SOLUTIONS:
             raise argparse.ArgumentTypeError(f"{solution_arg} is not in dict")
-        return solution_arg.upper()
+        return solution_arg
 
     args = argparse.ArgumentParser()
     args.add_argument("--hints",
