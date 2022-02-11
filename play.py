@@ -26,6 +26,7 @@ if __name__=="__main__":
     solution = None
     hints = False
     loop = False
+    bot = False
     for arg in sys.argv[1:]:
         if arg == "-h" or arg == "--help":
             print_help()
@@ -42,6 +43,8 @@ if __name__=="__main__":
             player.warn(f"Solution will be { solution }")
         elif arg == "--hints":
             hints = True
+        elif arg == "--bot":
+            bot = True
         else:
             player.warn(f"Invalid argument { arg }")
             print_help()
@@ -52,7 +55,7 @@ if __name__=="__main__":
          
     while True:
         try:
-            game.play(player, solution, hints=hints)
+            game.play(player, solution, hints=hints, bot=bot)
         except (KeyboardInterrupt, EOFError):
             print()
             player.quit()

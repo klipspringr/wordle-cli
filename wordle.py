@@ -1,4 +1,8 @@
 import os
+import sys
+import numpy as np
+from nltk import FreqDist
+from nltk.corpus import gutenberg, brown
 from enum import Enum
 from typing import List
 
@@ -22,28 +26,41 @@ class Game:
 
         # official list of guesses does not include solutions, so add them, ignoring duplicates (albeit no duplicates in official lists)
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
-
         self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
-  
-    def play(self, player, solution, hints=False):
+        fd = FreqDist()
+        for word in gutenberg.words():
+            fd.update([word])
+        for word in brown.words():
+            fd.update([word])
+        self.fd = fd
+
+    def play(self, player, solution, hints=False, bot=False):
         player.start()
         round = 1
         while round <= self.ROUNDS:
             while True:
-                guess = player.guess(round)
-                if player.ASSUME_GUESSES_VALID:
+                if bot: 
+                    guess = self.botguess(round)
                     break
-                elif len(guess) != self.LENGTH or not guess.isalpha():
-                    guess = guess.strip()
-                    player.warn(f"{ guess[:5]+'..' if len(guess) > self.LENGTH else guess } invalid")
-                elif guess not in self.VALID_GUESSES:
-                    player.warn(f"{ guess } not in dict".strip())
                 else:
-                    break
+                    guess = player.guess(round)
+                    if player.ASSUME_GUESSES_VALID:
+                        break
+                    elif len(guess) != self.LENGTH or not guess.isalpha():
+                        guess = guess.strip()
+                        player.warn(f"{ guess[:5]+'..' if len(guess) > self.LENGTH else guess } invalid")
+                    elif guess not in self.VALID_GUESSES:
+                        player.warn(f"{ guess } not in dict".strip())
+                    else:
+                        break
            
             states = Game.check_guess(guess, solution)
 
             if hints and states != Game.WIN_STATES:
+                self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
+                hint = len(self.POSSIBLE_WORDS)
+
+            elif bot and states != Game.WIN_STATES:
                 self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
                 hint = len(self.POSSIBLE_WORDS)
             else:
@@ -60,7 +77,19 @@ class Game:
         if hasattr(player, "handle_loss"):
             player.handle_loss(solution)
         return None
-    
+
+    def botguess(self, round):
+        prompt = f"Guess { round }/{ Game.ROUNDS}: "
+        print(prompt)
+        if round ==1:
+            guess = "STARE"
+        else:
+            freq = [self.fd[word.lower()] for word in self.POSSIBLE_WORDS]
+            max_id = np.argmax(freq)
+            guess = self.POSSIBLE_WORDS[max_id]
+        sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K")
+        return guess
+
     @staticmethod
     def check_guess(guess: str, solution: str) -> List[LetterStates]:
         if guess == solution:
@@ -115,5 +144,5 @@ class Game:
             else:
                 if other_state != LetterStates.NOTPRESENT:
                     return False
-        
+
         return True
