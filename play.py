@@ -23,41 +23,36 @@ if __name__=="__main__":
     game = wordle.Game()
     player = CLIPlayer()
     
-    solution = None
+    fixed_solution = None
     hints = False
-    loop = False
     for arg in sys.argv[1:]:
         if arg == "-h" or arg == "--help":
             print_help()
-        elif arg == "--today" and solution == None:
+        elif arg == "--today" and fixed_solution == None:
             delta = (datetime.utcnow() - datetime(2021, 6, 19)).days % len(game.VALID_SOLUTIONS)
-            solution = game.VALID_SOLUTIONS[delta]
+            fixed_solution = game.VALID_SOLUTIONS[delta]
             player.GAME_NUMBER = delta
-        elif arg.isdigit() and int(arg) >= 0 and solution == None:
+        elif arg.isdigit() and int(arg) >= 0 and fixed_solution == None:
             delta = int(arg) % len(game.VALID_SOLUTIONS)
-            solution = game.VALID_SOLUTIONS[delta]
+            fixed_solution = game.VALID_SOLUTIONS[delta]
             player.GAME_NUMBER = delta
-        elif arg.isalpha() and len(arg) == game.LENGTH and solution == None:
-            solution = arg.upper()
-            player.warn(f"Solution will be { solution }")
+        elif arg.isalpha() and len(arg) == game.LENGTH and fixed_solution == None:
+            fixed_solution = arg.upper()
+            player.warn(f"Solution will be { fixed_solution }")
         elif arg == "--hints":
             hints = True
         else:
             player.warn(f"Invalid argument { arg }")
             print_help()
-
-    if solution == None:
-        solution = random.choice(game.VALID_SOLUTIONS)
-        loop = True
-         
+        
     while True:
         try:
-            game.play(player, solution, hints=hints)
+            game.play(player, random.choice(game.VALID_SOLUTIONS) if fixed_solution == None else fixed_solution, hints=hints)
         except (KeyboardInterrupt, EOFError):
             print()
             player.quit()
         
-        if not loop:
+        if fixed_solution != None:
             exit()
             
         try:
