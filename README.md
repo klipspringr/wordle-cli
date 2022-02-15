@@ -3,7 +3,7 @@
 Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wordle/), inspired by [Paul Battley's Ruby version](https://github.com/threedaymonk/wordle). Features:
 
 - play against random solutions, or against the daily "official" Wordle solution
-- uses official dictionaries of solutions and valid guesses
+- uses official (NYT) dictionaries of solutions and valid guesses
 - spoiler-free emoji summaries for sharing
 - optional hints mode (`--hints`) to show number of possible words remaining
 
