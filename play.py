@@ -9,14 +9,14 @@ from cli import CLIPlayer
 def print_help_exit():
     print("Usage: python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]")
     print()
-    print("Option\t\tBehaviour (* = mutually-exclusive)")
-    print("------\t\t----------------------------------")
-    print("none\t\tUse a random solution from the official Wordle dictionary")
-    print("--today\t\t* Use today's official Wordle solution")
-    print("DAY (number)\t* Use the official solution from this DAY")
-    print("SOLUTION (str)\t* Use a given SOLUTION (must be 5-letter word)")
-    print("--hints\t\tAfter each guess, report number of possible words remaining")
-    print("-h, --help\tPrint this help text and quit")
+    print("Option\t\t\tBehaviour (* = mutually-exclusive)")
+    print("------\t\t\t----------------------------------")
+    print("none\t\t\tUse a random solution from the official Wordle dictionary")
+    print("--today\t\t\t* Use today's official Wordle solution")
+    print("DAY (number)\t\t* Use the official solution from this DAY")
+    print("SOLUTION (string)\t* Use a given SOLUTION (must be 5-letter word)")
+    print("--hints\t\t\tAfter each guess, report number of possible words remaining")
+    print("-h, --help\t\tPrint this help text and quit")
     exit()
 
 if __name__=="__main__":

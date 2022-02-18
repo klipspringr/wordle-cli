@@ -24,20 +24,18 @@ Alternatively, if you don't have git: click `Code > Download ZIP` on GitHub, ext
 
 A **terminal with support for colours and emoji** is required. On Windows and WSL, [Windows Terminal](https://aka.ms/terminal) is the best choice. PowerShell and the Windows command prompt are only supported if running in Windows Terminal.
 
-Not tested on **macOS**, but should work &mdash; let me know if any problems!
-
 ## Options
 
 Usage: `python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]`
 
-|Option                 |Behaviour                                                  |
-|-----------------------|-----------------------------------------------------------|
-|_none_                 |Use a random solution from the official Wordle dictionary  |
-|`--today`              |**\***  Use today's official Wordle solution               |
-|`DAY` (number)         |**\***  Use the official solution from this DAY            |
-|`SOLUTION` (str)       |**\***  Use a given SOLUTION (must be 5-letter word)       |
-|`--hints`              |After each guess, report number of possible words remaining|
-|`-h` , `--help`        |Print this help text and quit                              |
+|Option                     |Behaviour                                                  |
+|---------------------------|-----------------------------------------------------------|
+|_none_                     |Use a random solution from the official Wordle dictionary  |
+|`--today`                  |**\***  Use today's official Wordle solution               |
+|`DAY` (number)             |**\***  Use the official solution from this DAY            |
+|`SOLUTION` (string)        |**\***  Use a given SOLUTION (must be 5-letter word)       |
+|`--hints`                  |After each guess, report number of possible words remaining|
+|`-h` , `--help`            |Print this help text and quit                              |
 
 _Note: options marked **\*** are mutually-exclusive._
 
@@ -50,7 +48,3 @@ Hints mode (`--hints`) looks like this:
 ## Configuration
 
 To change the terminal colours, sharing emoji and other variables, save the file `config.ini.defaults` as `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([cheat sheet](https://i.stack.imgur.com/6otvY.png)).
-
-## Solving Wordle
-
-Using [Knuth's minimax algorithm for Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Worst_case:_Five-guess_algorithm) and a hardcoded first guess, Wordle can be won for all words on the official solutions list. The algorithm is seeded with the official list of valid _guesses_ (not solutions). This list is effectively available to human players as well, as the game rejects invalid words without using a guess. This repo contained a solver, but it was unnecessarily slow, so I've rewritten it and may release it in due course.
